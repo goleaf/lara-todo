@@ -4,9 +4,11 @@ namespace App\Livewire\Categories;
 
 use Livewire\Component;
 use Illuminate\Validation\Rule;
+use Mary\Traits\Toast;
 
 class Create extends Component
 {
+    use Toast;
     public string $name = '';
     public string $color = '#000000';
 
@@ -37,8 +39,11 @@ class Create extends Component
             'color' => $this->color,
         ]);
 
-        return redirect()->route('categories.index')
-            ->with('success', __('app.categories.created_success'));
+        $this->success(
+            __('app.categories.created_success'),
+            position: 'toast-top toast-end',
+            redirectTo: route('categories.index')
+        );
     }
 
     public function render()

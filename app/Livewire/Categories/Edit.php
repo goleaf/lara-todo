@@ -5,9 +5,11 @@ namespace App\Livewire\Categories;
 use App\Models\Category;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
+use Mary\Traits\Toast;
 
 class Edit extends Component
 {
+    use Toast;
     public Category $category;
     public string $name = '';
     public string $color = '';
@@ -44,8 +46,11 @@ class Edit extends Component
 
         $this->category->update($validated);
 
-        return redirect()->route('categories.index')
-            ->with('success', __('app.categories.updated_success'));
+        $this->success(
+            __('app.categories.updated_success'),
+            position: 'toast-top toast-end',
+            redirectTo: route('categories.index')
+        );
     }
 
     public function render()

@@ -91,7 +91,7 @@
             @if($todos->count())
                 <x-card shadow class="bg-base-100">
                     <x-table :headers="$this->headers()" :rows="$todos" :sort-by="$sortBy" with-pagination
-                        selectable wire:model="selected" expandable link="/todos/{id}">
+                        selectable wire:model="selected" link="/todos/{id}">
 
                         {{-- Category cell with color indicator --}}
                         @scope('cell_category.name', $todo)
@@ -143,34 +143,6 @@
                                     class="btn-ghost btn-xs text-success" tooltip="Edit" />
                                 <x-button icon="o-trash" wire:click="confirmDelete({{ $todo->id }})"
                                     class="btn-ghost btn-xs text-error" tooltip="Delete" />
-                            </div>
-                        @endscope
-
-                        {{-- Expandable row content --}}
-                        @scope('expansion', $todo)
-                            <div class="bg-base-200/50 p-4 rounded-lg">
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div>
-                                        <h4 class="font-bold text-sm opacity-60 mb-1">Description</h4>
-                                        <p class="text-sm">{{ $todo->description ?: 'No description' }}</p>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-sm opacity-60 mb-1">Tags</h4>
-                                        <div class="flex flex-wrap gap-1">
-                                            @forelse($todo->tags as $tag)
-                                                <x-badge :value="$tag->name"
-                                                    style="background-color: {{ $tag->color }}; color: white;"
-                                                    class="badge-sm" />
-                                            @empty
-                                                <span class="text-sm opacity-40">No tags</span>
-                                            @endforelse
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-bold text-sm opacity-60 mb-1">Created</h4>
-                                        <p class="text-sm">{{ $todo->created_at->format('M d, Y \a\t H:i') }}</p>
-                                    </div>
-                                </div>
                             </div>
                         @endscope
 

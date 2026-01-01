@@ -69,8 +69,7 @@ class TodoTest extends TestCase
             ->set('description', $todoData['description'])
             ->set('due_date', $todoData['due_date'])
             ->call('save')
-            ->assertRedirect(route('todos.index'))
-            ->assertSessionHas('success');
+            ->assertRedirect(route('todos.index'));
 
         $this->assertDatabaseHas('todos', [
             'user_id' => $this->user->id,
@@ -146,8 +145,7 @@ class TodoTest extends TestCase
             ->set('due_date', $todoData['due_date'])
             ->set('tags', [$this->tag2->id])
             ->call('save')
-            ->assertRedirect(route('todos.index'))
-            ->assertSessionHas('success');
+            ->assertRedirect(route('todos.index'));
 
         $this->assertDatabaseHas('todos', ['id' => $todo->id, 'title' => 'Updated Title']);
         $this->assertDatabaseMissing('tag_todo', ['todo_id' => $todo->id, 'tag_id' => $this->tag1->id]);
@@ -162,8 +160,7 @@ class TodoTest extends TestCase
         \Livewire\Livewire::actingAs($this->user)
             ->test(\App\Livewire\Todos\Show::class, ['todo' => $todo])
             ->call('delete')
-            ->assertRedirect(route('todos.index'))
-            ->assertSessionHas('success');
+            ->assertRedirect(route('todos.index'));
 
         $this->assertDatabaseMissing('todos', ['id' => $todo->id]);
     }

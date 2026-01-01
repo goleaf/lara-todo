@@ -5,9 +5,11 @@ namespace App\Livewire\Tags;
 use App\Models\Tag;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
+use Mary\Traits\Toast;
 
 class Edit extends Component
 {
+    use Toast;
     public Tag $tag;
     public string $name = '';
     public string $color = '';
@@ -44,8 +46,11 @@ class Edit extends Component
 
         $this->tag->update($validated);
 
-        return redirect()->route('tags.index')
-            ->with('success', __('app.tags.updated_success'));
+        $this->success(
+            __('app.tags.updated_success'),
+            position: 'toast-top toast-end',
+            redirectTo: route('tags.index')
+        );
     }
 
     public function render()
