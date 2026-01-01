@@ -22,6 +22,7 @@ return [
         'no_records' => 'No records found.',
         'success' => 'Success',
         'confirm_delete' => 'Are you sure you want to delete this item?',
+        'progress' => 'Progress',
     ],
     'todos' => [
         'title' => 'Todos',
@@ -34,6 +35,7 @@ return [
         'created_success' => 'Todo created successfully.',
         'updated_success' => 'Todo updated successfully.',
         'deleted_success' => 'Todo deleted successfully.',
+        'no_todos' => 'No todos found',
     ],
     'categories' => [
         'title' => 'Categories',
