@@ -106,7 +106,7 @@
 
             {{-- TIMELINE / ACTIVITY --}}
             <x-card title="Timeline" shadow class="bg-base-100">
-                <x-timeline>
+                <ul class="timeline timeline-vertical">
                     <x-timeline-item title="Created" subtitle="{{ $todo->created_at->format('M d, Y \a\t H:i') }}"
                         description="{{ $todo->created_at->diffForHumans() }}" icon="o-plus-circle" first />
                     @if($todo->updated_at->gt($todo->created_at))
@@ -122,7 +122,7 @@
                         <x-timeline-item title="Completed" subtitle="Task finished" description="Great job!"
                             icon="o-check-circle" last />
                     @endif
-                </x-timeline>
+                </ul>
             </x-card>
         </div>
 

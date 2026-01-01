@@ -62,9 +62,10 @@ class CategoryTest extends TestCase
         $this->actingAs($this->user);
         $category = Category::factory()->create(['user_id' => $this->user->id]);
 
-        // Using Index component for delete as per implementation in Index.php
+        // Using Index component for delete with new modal confirmation flow
         \Livewire\Livewire::test(\App\Livewire\Categories\Index::class)
-            ->call('delete', $category->id);
+            ->call('confirmDelete', $category->id, $category->name)
+            ->call('delete');
 
         $this->assertDatabaseMissing('categories', ['id' => $category->id]);
     }
@@ -102,9 +103,11 @@ class CategoryTest extends TestCase
 
         $this->actingAs($this->user);
 
-        // Attempting to delete via Index component
+        // Attempting to delete via Index component with the new flow
+        // The authorization check happens in the delete method
         \Livewire\Livewire::test(\App\Livewire\Categories\Index::class)
-            ->call('delete', $category->id)
+            ->call('confirmDelete', $category->id, $category->name)
+            ->call('delete')
             ->assertForbidden(); // Should fail authorization
 
         $this->assertDatabaseHas('categories', ['id' => $category->id]);

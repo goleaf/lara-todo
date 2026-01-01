@@ -64,9 +64,10 @@ class TagTest extends TestCase
         $this->actingAs($this->user);
         $tag = Tag::factory()->create(['user_id' => $this->user->id]);
 
-        // Using Index component for delete as per implementation
+        // Using Index component for delete with new modal confirmation flow
         \Livewire\Livewire::test(\App\Livewire\Tags\Index::class)
-            ->call('delete', $tag->id);
+            ->call('confirmDelete', $tag->id, $tag->name)
+            ->call('delete');
 
         $this->assertDatabaseMissing('tags', ['id' => $tag->id]);
     }
@@ -102,8 +103,10 @@ class TagTest extends TestCase
 
         $this->actingAs($this->user);
 
+        // Attempting to delete via Index component with the new flow
         \Livewire\Livewire::test(\App\Livewire\Tags\Index::class)
-            ->call('delete', $tag->id)
+            ->call('confirmDelete', $tag->id, $tag->name)
+            ->call('delete')
             ->assertForbidden();
 
         $this->assertDatabaseHas('tags', ['id' => $tag->id]);

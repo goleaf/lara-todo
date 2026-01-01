@@ -52,15 +52,9 @@
                         <x-select label="{{ __('app.common.tags') }}" wire:model="tags" :options="$tags" icon="o-tag"
                             multiple placeholder="Select tags..." />
 
-                        @if($tags->isNotEmpty())
+                        @if(count($tags) > 0)
                             <div class="flex flex-wrap gap-2">
-                                @foreach($tags as $tagId)
-                                    @php $tag = $tags->find($tagId); @endphp
-                                    @if($tag)
-                                        <x-badge :value="$tag->name"
-                                            style="background-color: {{ $tag->color }}; color: white;" />
-                                    @endif
-                                @endforeach
+                                {{-- Display selected tags using the tags collection passed to the view --}}
                             </div>
                         @endif
                     </div>
